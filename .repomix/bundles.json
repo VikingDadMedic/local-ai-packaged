@@ -1,0 +1,23 @@
+{
+  "bundles": {
+    "jsaiservices-715": {
+      "name": "jsaiservices",
+      "created": "2025-06-07T21:51:38.543Z",
+      "lastUsed": "2025-06-07T21:52:01.531Z",
+      "tags": [],
+      "files": [
+        ".env.example",
+        "Caddyfile",
+        "docker-compose.override.private.yml",
+        "docker-compose.override.public.supabase.yml",
+        "docker-compose.override.public.yml",
+        "docker-compose.yml",
+        "Local_RAG_AI_Agent_n8n_Workflow.json",
+        "n8n_pipe.py",
+        "README.md",
+        "start_services.py",
+        "searxng/settings-base.yml"
+      ]
+    }
+  }
+}

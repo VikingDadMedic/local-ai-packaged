@@ -1,0 +1,2354 @@
+This file is a merged representation of a subset of the codebase, containing specifically included files, combined into a single document by Repomix.
+The content has been processed where empty lines have been removed, content has been formatted for parsing in plain style, security check has been disabled.
+
+================================================================
+File Summary
+================================================================
+
+Purpose:
+--------
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+
+File Format:
+------------
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  a. A separator line (================)
+  b. The file path (File: path/to/file)
+  c. Another separator line
+  d. The full contents of the file
+  e. A blank line
+
+Usage Guidelines:
+-----------------
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+
+Notes:
+------
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Only files matching these patterns are included: .env.example, Caddyfile, docker-compose.override.private.yml, docker-compose.override.public.supabase.yml, docker-compose.override.public.yml, docker-compose.yml, Local_RAG_AI_Agent_n8n_Workflow.json, n8n_pipe.py, README.md, start_services.py, searxng/settings-base.yml
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Empty lines have been removed from all files
+- Content has been formatted for parsing in plain style
+- Security check has been disabled - content may contain sensitive information
+- Files are sorted by Git change count (files with more changes are at the bottom)
+
+
+================================================================
+Directory Structure
+================================================================
+searxng/
+  settings-base.yml
+.env.example
+Caddyfile
+docker-compose.override.private.yml
+docker-compose.override.public.supabase.yml
+docker-compose.override.public.yml
+docker-compose.yml
+Local_RAG_AI_Agent_n8n_Workflow.json
+n8n_pipe.py
+README.md
+start_services.py
+
+================================================================
+Files
+================================================================
+
+================
+File: docker-compose.override.private.yml
+================
+services:
+  flowise:
+    ports:
+      - 127.0.0.1:3001:3001
+  open-webui:
+    ports:
+      - 127.0.0.1:8080:8080
+  n8n:
+    ports:
+      - 127.0.0.1:5678:5678
+  qdrant:
+    ports:
+      - 127.0.0.1:6333:6333
+      - 127.0.0.1:6334:6334
+  neo4j:
+    ports:
+      - 127.0.0.1:7473:7473
+      - 127.0.0.1:7474:7474
+      - 127.0.0.1:7687:7687
+  langfuse-worker:
+    ports:
+      - 127.0.0.1:3030:3030
+  langfuse-web:
+    ports:
+      - 127.0.0.1:3000:3000
+  clickhouse:
+    ports:
+      - 127.0.0.1:8123:8123
+      - 127.0.0.1:9000:9000
+      - 127.0.0.1:9009:9009
+  minio:
+    ports:
+      - 127.0.0.1:9010:9000
+      - 127.0.0.1:9011:9001
+  postgres:
+    ports:
+      - 127.0.0.1:5433:5432                
+  redis:
+    ports:
+      - 127.0.0.1:6379:6379
+  searxng:
+    ports:
+      - 127.0.0.1:8081:8080
+  ollama-cpu:
+    ports:
+      - 127.0.0.1:11434:11434
+  ollama-gpu:
+    ports:
+      - 127.0.0.1:11434:11434
+  ollama-gpu-amd:
+    ports:
+      - 127.0.0.1:11434:11434
+
+================
+File: docker-compose.override.public.supabase.yml
+================
+services:
+  analytics:
+    ports: !reset null
+  kong:
+    ports: !reset null
+  supavisor:
+    ports: !reset null
+
+================
+File: docker-compose.override.public.yml
+================
+services:
+  analytics:
+    ports: !reset null
+  kong:
+    ports: !reset null
+  supavisor:
+    ports: !reset null
+
+================
+File: Local_RAG_AI_Agent_n8n_Workflow.json
+================
+{
+  "name": "Local RAG AI Agent",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "99b30fd7-b36c-44ba-9daa-408585aaaee9",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        560
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "iN7fO2CgatVwq73z",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama3.1:latest",
+        "options": {}
+      },
+      "id": "c7632a7c-2661-492e-bd6f-aab994818998",
+      "name": "Ollama Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        920,
+        560
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "eOwAotC7AUgJlvHM",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama3.1:latest",
+        "options": {}
+      },
+      "id": "73d773a4-5c72-4af3-a52d-144f0e417823",
+      "name": "Ollama Model",
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        1960,
+        500
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "eOwAotC7AUgJlvHM",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "documents",
+        "topK": 3
+      },
+      "id": "3f882fa7-c8ed-4531-b236-a34c16c55838",
+      "name": "Vector Store Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "id": "3a8e3fa0-3997-4bce-985c-975fb5ad4013",
+      "name": "Embeddings Ollama",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        600
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "eOwAotC7AUgJlvHM",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1914m3M7kRzkd5RJqAfzRY9EBcJrKemZC",
+          "mode": "list",
+          "cachedResultName": "Meeting Notes",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1914m3M7kRzkd5RJqAfzRY9EBcJrKemZC"
+        },
+        "event": "fileCreated",
+        "options": {}
+      },
+      "id": "41fb71dd-236a-48bc-9761-5841d52ca1b3",
+      "name": "File Created",
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        600,
+        880
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "vzcL2pD7uQzqDpdK",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1914m3M7kRzkd5RJqAfzRY9EBcJrKemZC",
+          "mode": "list",
+          "cachedResultName": "Meeting Notes",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1914m3M7kRzkd5RJqAfzRY9EBcJrKemZC"
+        },
+        "event": "fileUpdated",
+        "options": {}
+      },
+      "id": "7b904686-89ae-4722-9ce5-a9da1b13b1a1",
+      "name": "File Updated",
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        600,
+        1100
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "vzcL2pD7uQzqDpdK",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10646eae-ae46-4327-a4dc-9987c2d76173",
+              "name": "file_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "dd0aa081-79e7-4714-8a67-1e898285554c",
+              "name": "folder_id",
+              "value": "={{ $json.parents[0] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "87f8bbb0-92c5-4b25-be63-7a9d91fc46f8",
+      "name": "Set File ID",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        860,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Set File ID').item.json.file_id }}",
+          "mode": "id"
+        },
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "text/plain"
+            }
+          }
+        }
+      },
+      "id": "9f1e08fb-4ef3-4c4d-9473-5a7a1608b8e3",
+      "name": "Download File",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1300,
+        880
+      ],
+      "executeOnce": true,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "vzcL2pD7uQzqDpdK",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "id": "7efee822-68ad-4fe2-a616-ba19fd127684",
+      "name": "Extract Document Text",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        880
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "file_id",
+                "value": "={{ $('Set File ID').item.json.file_id }}"
+              },
+              {
+                "name": "folder_id",
+                "value": "={{ $('Set File ID').item.json.folder_id }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "da4c8b29-4944-43c4-9df3-e380366c594a",
+      "name": "Default Data Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        1860,
+        1100
+      ]
+    },
+    {
+      "parameters": {
+        "chunkSize": 100,
+        "options": {}
+      },
+      "id": "d11c39b9-3fa7-4d5d-838f-da0d258c67c5",
+      "name": "Recursive Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        1860,
+        1320
+      ]
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "id": "8a04559c-dfe8-479f-8998-a2e9bc994a0a",
+      "name": "Embeddings Ollama1",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        1700,
+        1100
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "eOwAotC7AUgJlvHM",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Local RAG AI Agent with Chat Interface",
+        "height": 527.3027193303974,
+        "width": 969.0343804425795
+      },
+      "id": "a18773ae-1eb3-46b8-91cf-4184c66cf14f",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        560,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Agent Tools for Local RAG",
+        "height": 528.85546469693,
+        "width": 583.4552380860637,
+        "color": 4
+      },
+      "id": "fa010a11-3dda-4bd5-b261-463a3a6b88d9",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Workflow to Create Local Knowledgebase from Google Drive Folder",
+        "height": 705.2695614889159,
+        "width": 1568.9362829025763,
+        "color": 5
+      },
+      "id": "f29e6cc7-015e-47cb-a4fd-fecd6ffb0d24",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        560,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "5da52326-dfbd-4350-919c-843461f58913",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        620,
+        340
+      ],
+      "webhookId": "4b3b1838-d6b3-447e-9d79-d0931eddb9f8"
+    },
+    {
+      "parameters": {
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "id": "355370e0-2174-4e5b-830b-dd0f123b2e40",
+      "name": "Qdrant Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        480
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "VOnegFP8eijBkbNO",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "code": {
+          "execute": {
+            "code": "const { QdrantVectorStore } = require(\"@langchain/qdrant\");\nconst { OllamaEmbeddings } = require(\"@langchain/community/embeddings/ollama\");\n\nconst embeddings = new OllamaEmbeddings({\n  model: \"nomic-embed-text\",\n  baseUrl: \"http://ollama:11434\"\n});\n\nconst vectorStore = await QdrantVectorStore.fromExistingCollection(\n  embeddings,\n  {\n    url: \"http://qdrant:6333\",\n    collectionName: \"documents\",\n  }\n);\n\nconst fileIdToDelete = this.getInputData()[0].json.file_id;\n\nconst filter = {\n        must: [\n            {\n                key: \"metadata.file_id\",\n                match: {\n                    value: fileIdToDelete,\n                },\n            },\n        ],\n    }\n\n// const results = await vectorStore.similaritySearch(\"this\", 10, filter);\n// const idsToDelete = results.map((doc) => doc.id);\n\n// NOT IMPLEMENTED!\n// await vectorStore.delete({ ids: idsToDelete });\n\nvectorStore.client.delete(\"documents\", {\n  filter\n});\n\nreturn [ {json: { file_id: fileIdToDelete } } ];\n"
+          }
+        },
+        "inputs": {
+          "input": [
+            {
+              "type": "main",
+              "required": true
+            }
+          ]
+        },
+        "outputs": {
+          "output": [
+            {
+              "type": "main"
+            }
+          ]
+        }
+      },
+      "id": "b93bd001-0c4d-42fe-939a-eb441f354917",
+      "name": "Clear Old Vectors",
+      "type": "@n8n/n8n-nodes-langchain.code",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        880
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "id": "97ec4618-c0ea-445b-9406-5d41784d7836",
+      "name": "Qdrant Vector Store Insert",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        880
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "VOnegFP8eijBkbNO",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "e537544a-37d5-4b00-b5ff-bc71f041f4bb",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1340,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "invoke_n8n_agent",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "2b8cd01f-30a8-4aab-b0dd-56d2b658f059",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        620,
+        520
+      ],
+      "webhookId": "4a839da9-b8a2-45f8-bcaf-c484f9a5912d"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "c9dfe906-178b-4375-8bda-f9290f35f222",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1000,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "75ebfdef-c8e2-4c3e-b716-1479d0cc2a73",
+              "name": "chatInput",
+              "value": "={{ $json?.chatInput || $json.body.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "59b7a20f-0626-4861-93e2-015d430c266e",
+              "name": "sessionId",
+              "value": "={{ $json?.sessionId || $json.body.sessionId}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8f974a15-aa2f-4525-8278-ad58ad296076",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        820,
+        340
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "File Created": {
+      "main": [
+        [
+          {
+            "node": "Set File ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "File Updated": {
+      "main": [
+        [
+          {
+            "node": "Set File ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set File ID": {
+      "main": [
+        [
+          {
+            "node": "Clear Old Vectors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download File": {
+      "main": [
+        [
+          {
+            "node": "Extract Document Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Document Text": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Vector Store Insert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Vector Store Insert",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store Insert",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clear Old Vectors": {
+      "main": [
+        [
+          {
+            "node": "Download File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "19f9691c-4682-4704-81f2-33fdec9d0be2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f722e3e1e81e942a38faa434ad0aee8699371bbff9f883b9d5c59a7c726605af"
+  },
+  "id": "vTN9y2dLXqTiDfPT",
+  "tags": []
+}
+
+================
+File: n8n_pipe.py
+================
+"""
+title: n8n Pipe Function
+author: Cole Medin
+author_url: https://www.youtube.com/@ColeMedin
+version: 0.1.0
+This module defines a Pipe class that utilizes N8N for an Agent
+"""
+from typing import Optional, Callable, Awaitable
+from pydantic import BaseModel, Field
+import os
+import time
+import requests
+def extract_event_info(event_emitter) -> tuple[Optional[str], Optional[str]]:
+    if not event_emitter or not event_emitter.__closure__:
+        return None, None
+    for cell in event_emitter.__closure__:
+        if isinstance(request_info := cell.cell_contents, dict):
+            chat_id = request_info.get("chat_id")
+            message_id = request_info.get("message_id")
+            return chat_id, message_id
+    return None, None
+class Pipe:
+    class Valves(BaseModel):
+        n8n_url: str = Field(
+            default="https://n8n.[your domain].com/webhook/[your webhook URL]"
+        )
+        n8n_bearer_token: str = Field(default="...")
+        input_field: str = Field(default="chatInput")
+        response_field: str = Field(default="output")
+        emit_interval: float = Field(
+            default=2.0, description="Interval in seconds between status emissions"
+        )
+        enable_status_indicator: bool = Field(
+            default=True, description="Enable or disable status indicator emissions"
+        )
+    def __init__(self):
+        self.type = "pipe"
+        self.id = "n8n_pipe"
+        self.name = "N8N Pipe"
+        self.valves = self.Valves()
+        self.last_emit_time = 0
+        pass
+    async def emit_status(
+        self,
+        __event_emitter__: Callable[[dict], Awaitable[None]],
+        level: str,
+        message: str,
+        done: bool,
+    ):
+        current_time = time.time()
+        if (
+            __event_emitter__
+            and self.valves.enable_status_indicator
+            and (
+                current_time - self.last_emit_time >= self.valves.emit_interval or done
+            )
+        ):
+            await __event_emitter__(
+                {
+                    "type": "status",
+                    "data": {
+                        "status": "complete" if done else "in_progress",
+                        "level": level,
+                        "description": message,
+                        "done": done,
+                    },
+                }
+            )
+            self.last_emit_time = current_time
+    async def pipe(
+        self,
+        body: dict,
+        __user__: Optional[dict] = None,
+        __event_emitter__: Callable[[dict], Awaitable[None]] = None,
+        __event_call__: Callable[[dict], Awaitable[dict]] = None,
+    ) -> Optional[dict]:
+        await self.emit_status(
+            __event_emitter__, "info", "/Calling N8N Workflow...", False
+        )
+        chat_id, _ = extract_event_info(__event_emitter__)
+        messages = body.get("messages", [])
+        # Verify a message is available
+        if messages:
+            question = messages[-1]["content"]
+            try:
+                # Invoke N8N workflow
+                headers = {
+                    "Authorization": f"Bearer {self.valves.n8n_bearer_token}",
+                    "Content-Type": "application/json",
+                }
+                payload = {"sessionId": f"{chat_id}"}
+                payload[self.valves.input_field] = question
+                response = requests.post(
+                    self.valves.n8n_url, json=payload, headers=headers
+                )
+                if response.status_code == 200:
+                    n8n_response = response.json()[self.valves.response_field]
+                else:
+                    raise Exception(f"Error: {response.status_code} - {response.text}")
+                # Set assitant message with chain reply
+                body["messages"].append({"role": "assistant", "content": n8n_response})
+            except Exception as e:
+                await self.emit_status(
+                    __event_emitter__,
+                    "error",
+                    f"Error during sequence execution: {str(e)}",
+                    True,
+                )
+                return {"error": str(e)}
+        # If no message is available alert user
+        else:
+            await self.emit_status(
+                __event_emitter__,
+                "error",
+                "No messages found in the request body",
+                True,
+            )
+            body["messages"].append(
+                {
+                    "role": "assistant",
+                    "content": "No messages found in the request body",
+                }
+            )
+        await self.emit_status(__event_emitter__, "info", "Complete", True)
+        return n8n_response
+
+================
+File: searxng/settings-base.yml
+================
+# see https://docs.searxng.org/admin/settings/settings.html#settings-use-default-settings
+use_default_settings: true
+server:
+  # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
+  secret_key: "ultrasecretkey"  # change this!
+  limiter: false
+  image_proxy: true
+ui:
+  static_use_hash: true
+redis:
+  url: redis://redis:6379/0
+search:
+    formats:
+        - html
+        - json
+
+================
+File: Caddyfile
+================
+{
+    # Global options - works for both environments
+    email {$LETSENCRYPT_EMAIL}
+}
+
+# N8N
+{$N8N_HOSTNAME} {
+    # For domains, Caddy will automatically use Let's Encrypt
+    # For localhost/port addresses, HTTPS won't be enabled
+    reverse_proxy n8n:5678
+}
+
+# Open WebUI
+{$WEBUI_HOSTNAME} {
+    reverse_proxy open-webui:8080
+}
+
+# Flowise
+{$FLOWISE_HOSTNAME} {
+    reverse_proxy flowise:3001
+}
+
+# Langfuse
+{$LANGFUSE_HOSTNAME} {
+    reverse_proxy langfuse-web:3000
+}
+
+# # Ollama API
+# {$OLLAMA_HOSTNAME} {
+#     reverse_proxy ollama:11434
+# }
+
+# Supabase
+{$SUPABASE_HOSTNAME} {
+    reverse_proxy kong:8000
+}
+
+# Neo4j
+{$NEO4J_HOSTNAME} {
+    reverse_proxy neo4j:7474
+}
+
+# # SearXNG
+# {$SEARXNG_HOSTNAME} {
+#     encode zstd gzip
+    
+#     @api {
+#         path /config
+#         path /healthz
+#         path /stats/errors
+#         path /stats/checker
+#     }
+#     @search {
+#         path /search
+#     }
+#     @imageproxy {
+#         path /image_proxy
+#     }
+#     @static {
+#         path /static/*
+#     }
+    
+#     header {
+#         # CSP (https://content-security-policy.com)
+#         Content-Security-Policy "upgrade-insecure-requests; default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; form-action 'self' https://github.com/searxng/searxng/issues/new; font-src 'self'; frame-ancestors 'self'; base-uri 'self'; connect-src 'self' https://overpass-api.de; img-src * data:; frame-src https://www.youtube-nocookie.com https://player.vimeo.com https://www.dailymotion.com https://www.deezer.com https://www.mixcloud.com https://w.soundcloud.com https://embed.spotify.com;"
+#         # Disable some browser features
+#         Permissions-Policy "accelerometer=(),camera=(),geolocation=(),gyroscope=(),magnetometer=(),microphone=(),payment=(),usb=()"
+#         # Set referrer policy
+#         Referrer-Policy "no-referrer"
+#         # Force clients to use HTTPS
+#         Strict-Transport-Security "max-age=31536000"
+#         # Prevent MIME type sniffing from the declared Content-Type
+#         X-Content-Type-Options "nosniff"
+#         # X-Robots-Tag (comment to allow site indexing)
+#         X-Robots-Tag "noindex, noarchive, nofollow"
+#         # Remove "Server" header
+#         -Server
+#     }
+    
+#     header @api {
+#         Access-Control-Allow-Methods "GET, OPTIONS"
+#         Access-Control-Allow-Origin "*"
+#     }
+    
+#     route {
+#         # Cache policy
+#         header Cache-Control "max-age=0, no-store"
+#         header @search Cache-Control "max-age=5, private"
+#         header @imageproxy Cache-Control "max-age=604800, public"
+#         header @static Cache-Control "max-age=31536000, public, immutable"
+#     }
+    
+#     # SearXNG (uWSGI)
+#     reverse_proxy searxng:8080 {
+#         header_up X-Forwarded-Port {http.request.port}
+#         header_up X-Real-IP {http.request.remote.host}
+#         # https://github.com/searx/searx-docker/issues/24
+#         header_up Connection "close"
+#     }
+# }
+
+================
+File: start_services.py
+================
+#!/usr/bin/env python3
+"""
+start_services.py
+This script starts the Supabase stack first, waits for it to initialize, and then starts
+the local AI stack. Both stacks use the same Docker Compose project name ("localai")
+so they appear together in Docker Desktop.
+"""
+import os
+import subprocess
+import shutil
+import time
+import argparse
+import platform
+import sys
+def run_command(cmd, cwd=None):
+    """Run a shell command and print it."""
+    print("Running:", " ".join(cmd))
+    subprocess.run(cmd, cwd=cwd, check=True)
+def clone_supabase_repo():
+    """Clone the Supabase repository using sparse checkout if not already present."""
+    if not os.path.exists("supabase"):
+        print("Cloning the Supabase repository...")
+        run_command([
+            "git", "clone", "--filter=blob:none", "--no-checkout",
+            "https://github.com/supabase/supabase.git"
+        ])
+        os.chdir("supabase")
+        run_command(["git", "sparse-checkout", "init", "--cone"])
+        run_command(["git", "sparse-checkout", "set", "docker"])
+        run_command(["git", "checkout", "master"])
+        os.chdir("..")
+    else:
+        print("Supabase repository already exists, updating...")
+        os.chdir("supabase")
+        run_command(["git", "pull"])
+        os.chdir("..")
+def prepare_supabase_env():
+    """Copy .env to .env in supabase/docker."""
+    env_path = os.path.join("supabase", "docker", ".env")
+    env_example_path = os.path.join(".env")
+    print("Copying .env in root to .env in supabase/docker...")
+    shutil.copyfile(env_example_path, env_path)
+def stop_existing_containers(profile=None):
+    print("Stopping and removing existing containers for the unified project 'localai'...")
+    cmd = ["docker", "compose", "-p", "localai"]
+    if profile and profile != "none":
+        cmd.extend(["--profile", profile])
+    cmd.extend(["-f", "docker-compose.yml", "down"])
+    run_command(cmd)
+def start_supabase(environment=None):
+    """Start the Supabase services (using its compose file)."""
+    print("Starting Supabase services...")
+    cmd = ["docker", "compose", "-p", "localai", "-f", "supabase/docker/docker-compose.yml"]
+    if environment and environment == "public":
+        cmd.extend(["-f", "docker-compose.override.public.supabase.yml"])
+    cmd.extend(["up", "-d"])
+    run_command(cmd)
+def start_local_ai(profile=None, environment=None):
+    """Start the local AI services (using its compose file)."""
+    print("Starting local AI services...")
+    cmd = ["docker", "compose", "-p", "localai"]
+    if profile and profile != "none":
+        cmd.extend(["--profile", profile])
+    cmd.extend(["-f", "docker-compose.yml"])
+    if environment and environment == "private":
+        cmd.extend(["-f", "docker-compose.override.private.yml"])
+    if environment and environment == "public":
+        cmd.extend(["-f", "docker-compose.override.public.yml"])
+    cmd.extend(["up", "-d"])
+    run_command(cmd)
+def generate_searxng_secret_key():
+    """Generate a secret key for SearXNG based on the current platform."""
+    print("Checking SearXNG settings...")
+    # Define paths for SearXNG settings files
+    settings_path = os.path.join("searxng", "settings.yml")
+    settings_base_path = os.path.join("searxng", "settings-base.yml")
+    # Check if settings-base.yml exists
+    if not os.path.exists(settings_base_path):
+        print(f"Warning: SearXNG base settings file not found at {settings_base_path}")
+        return
+    # Check if settings.yml exists, if not create it from settings-base.yml
+    if not os.path.exists(settings_path):
+        print(f"SearXNG settings.yml not found. Creating from {settings_base_path}...")
+        try:
+            shutil.copyfile(settings_base_path, settings_path)
+            print(f"Created {settings_path} from {settings_base_path}")
+        except Exception as e:
+            print(f"Error creating settings.yml: {e}")
+            return
+    else:
+        print(f"SearXNG settings.yml already exists at {settings_path}")
+    print("Generating SearXNG secret key...")
+    # Detect the platform and run the appropriate command
+    system = platform.system()
+    try:
+        if system == "Windows":
+            print("Detected Windows platform, using PowerShell to generate secret key...")
+            # PowerShell command to generate a random key and replace in the settings file
+            ps_command = [
+                "powershell", "-Command",
+                "$randomBytes = New-Object byte[] 32; " +
+                "(New-Object Security.Cryptography.RNGCryptoServiceProvider).GetBytes($randomBytes); " +
+                "$secretKey = -join ($randomBytes | ForEach-Object { \"{0:x2}\" -f $_ }); " +
+                "(Get-Content searxng/settings.yml) -replace 'ultrasecretkey', $secretKey | Set-Content searxng/settings.yml"
+            ]
+            subprocess.run(ps_command, check=True)
+        elif system == "Darwin":  # macOS
+            print("Detected macOS platform, using sed command with empty string parameter...")
+            # macOS sed command requires an empty string for the -i parameter
+            openssl_cmd = ["openssl", "rand", "-hex", "32"]
+            random_key = subprocess.check_output(openssl_cmd).decode('utf-8').strip()
+            sed_cmd = ["sed", "-i", "", f"s|ultrasecretkey|{random_key}|g", settings_path]
+            subprocess.run(sed_cmd, check=True)
+        else:  # Linux and other Unix-like systems
+            print("Detected Linux/Unix platform, using standard sed command...")
+            # Standard sed command for Linux
+            openssl_cmd = ["openssl", "rand", "-hex", "32"]
+            random_key = subprocess.check_output(openssl_cmd).decode('utf-8').strip()
+            sed_cmd = ["sed", "-i", f"s|ultrasecretkey|{random_key}|g", settings_path]
+            subprocess.run(sed_cmd, check=True)
+        print("SearXNG secret key generated successfully.")
+    except Exception as e:
+        print(f"Error generating SearXNG secret key: {e}")
+        print("You may need to manually generate the secret key using the commands:")
+        print("  - Linux: sed -i \"s|ultrasecretkey|$(openssl rand -hex 32)|g\" searxng/settings.yml")
+        print("  - macOS: sed -i '' \"s|ultrasecretkey|$(openssl rand -hex 32)|g\" searxng/settings.yml")
+        print("  - Windows (PowerShell):")
+        print("    $randomBytes = New-Object byte[] 32")
+        print("    (New-Object Security.Cryptography.RNGCryptoServiceProvider).GetBytes($randomBytes)")
+        print("    $secretKey = -join ($randomBytes | ForEach-Object { \"{0:x2}\" -f $_ })")
+        print("    (Get-Content searxng/settings.yml) -replace 'ultrasecretkey', $secretKey | Set-Content searxng/settings.yml")
+def check_and_fix_docker_compose_for_searxng():
+    """Check and modify docker-compose.yml for SearXNG first run."""
+    docker_compose_path = "docker-compose.yml"
+    if not os.path.exists(docker_compose_path):
+        print(f"Warning: Docker Compose file not found at {docker_compose_path}")
+        return
+    try:
+        # Read the docker-compose.yml file
+        with open(docker_compose_path, 'r') as file:
+            content = file.read()
+        # Default to first run
+        is_first_run = True
+        # Check if Docker is running and if the SearXNG container exists
+        try:
+            # Check if the SearXNG container is running
+            container_check = subprocess.run(
+                ["docker", "ps", "--filter", "name=searxng", "--format", "{{.Names}}"],
+                capture_output=True, text=True, check=True
+            )
+            searxng_containers = container_check.stdout.strip().split('\n')
+            # If SearXNG container is running, check inside for uwsgi.ini
+            if any(container for container in searxng_containers if container):
+                container_name = next(container for container in searxng_containers if container)
+                print(f"Found running SearXNG container: {container_name}")
+                # Check if uwsgi.ini exists inside the container
+                container_check = subprocess.run(
+                    ["docker", "exec", container_name, "sh", "-c", "[ -f /etc/searxng/uwsgi.ini ] && echo 'found' || echo 'not_found'"],
+                    capture_output=True, text=True, check=False
+                )
+                if "found" in container_check.stdout:
+                    print("Found uwsgi.ini inside the SearXNG container - not first run")
+                    is_first_run = False
+                else:
+                    print("uwsgi.ini not found inside the SearXNG container - first run")
+                    is_first_run = True
+            else:
+                print("No running SearXNG container found - assuming first run")
+        except Exception as e:
+            print(f"Error checking Docker container: {e} - assuming first run")
+        if is_first_run and "cap_drop: - ALL" in content:
+            print("First run detected for SearXNG. Temporarily removing 'cap_drop: - ALL' directive...")
+            # Temporarily comment out the cap_drop line
+            modified_content = content.replace("cap_drop: - ALL", "# cap_drop: - ALL  # Temporarily commented out for first run")
+            # Write the modified content back
+            with open(docker_compose_path, 'w') as file:
+                file.write(modified_content)
+            print("Note: After the first run completes successfully, you should re-add 'cap_drop: - ALL' to docker-compose.yml for security reasons.")
+        elif not is_first_run and "# cap_drop: - ALL  # Temporarily commented out for first run" in content:
+            print("SearXNG has been initialized. Re-enabling 'cap_drop: - ALL' directive for security...")
+            # Uncomment the cap_drop line
+            modified_content = content.replace("# cap_drop: - ALL  # Temporarily commented out for first run", "cap_drop: - ALL")
+            # Write the modified content back
+            with open(docker_compose_path, 'w') as file:
+                file.write(modified_content)
+    except Exception as e:
+        print(f"Error checking/modifying docker-compose.yml for SearXNG: {e}")
+def main():
+    parser = argparse.ArgumentParser(description='Start the local AI and Supabase services.')
+    parser.add_argument('--profile', choices=['cpu', 'gpu-nvidia', 'gpu-amd', 'none'], default='cpu',
+                      help='Profile to use for Docker Compose (default: cpu)')
+    parser.add_argument('--environment', choices=['private', 'public'], default='private',
+                      help='Environment to use for Docker Compose (default: private)')
+    args = parser.parse_args()
+    clone_supabase_repo()
+    prepare_supabase_env()
+    # Generate SearXNG secret key and check docker-compose.yml
+    generate_searxng_secret_key()
+    check_and_fix_docker_compose_for_searxng()
+    stop_existing_containers(args.profile)
+    # Start Supabase first
+    start_supabase(args.environment)
+    # Give Supabase some time to initialize
+    print("Waiting for Supabase to initialize...")
+    time.sleep(10)
+    # Then start the local AI services
+    start_local_ai(args.profile, args.environment)
+if __name__ == "__main__":
+    main()
+
+================
+File: .env.example
+================
+# Change the name of this file to .env after updating it!
+
+############
+# [required] 
+# n8n credentials - you set this to whatever you want, just make it a long and secure string for both!
+############
+
+N8N_ENCRYPTION_KEY=super-secret-key
+N8N_USER_MANAGEMENT_JWT_SECRET=even-more-secret
+
+
+############
+# [required] 
+# Supabase Secrets
+
+# YOU MUST CHANGE THESE BEFORE GOING INTO PRODUCTION
+# Read these docs for any help: https://supabase.com/docs/guides/self-hosting/docker
+# For the JWT Secret and keys, see: https://supabase.com/docs/guides/self-hosting/docker#generate-api-keys
+# For the other secrets, see: https://supabase.com/docs/guides/self-hosting/docker#update-secrets
+# You can really decide any value for POOLER_TENANT_ID like 1000.
+
+# Note that using special symbols (like '%') can complicate things a bit for your Postgres password.
+# If you use special symbols in your Postgres password, you must remember to percent-encode your password later if using the Postgres connection string, for example, postgresql://postgres.projectref:p%3Dword@aws-0-us-east-1.pooler.supabase.com:6543/postgres
+############
+
+POSTGRES_PASSWORD=your-super-secret-and-long-postgres-password
+JWT_SECRET=your-super-secret-jwt-token-with-at-least-32-characters-long
+ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE
+SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJzZXJ2aWNlX3JvbGUiLAogICAgImlzcyI6ICJzdXBhYmFzZS1kZW1vIiwKICAgICJpYXQiOiAxNjQxNzY5MjAwLAogICAgImV4cCI6IDE3OTk1MzU2MDAKfQ.DaYlNEoUrrEn2Ig7tqibS-PHK5vgusbcbo7X36XVt4Q
+DASHBOARD_USERNAME=supabase
+DASHBOARD_PASSWORD=this_password_is_insecure_and_should_be_updated
+POOLER_TENANT_ID=your-tenant-id
+
+############
+# [required] 
+# Neo4j username and password
+# Replace "neo4j" with your chosen username and "password" with your chosen password.
+# Keep the "/" as a separator between the two.
+############
+
+NEO4J_AUTH=neo4j/password
+
+############
+# [required] 
+# Langfuse credentials
+# Each of the secret keys you can set to whatever you want, just make it secure!
+# For the encryption key, use the command `openssl rand -hex 32`
+#   openssl is available by defualt on Linux/Mac
+#   For Windows, you can use the 'Git Bash' terminal installed with git 
+############
+
+CLICKHOUSE_PASSWORD=super-secret-key-1
+MINIO_ROOT_PASSWORD=super-secret-key-2
+LANGFUSE_SALT=super-secret-key-3
+NEXTAUTH_SECRET=super-secret-key-4
+ENCRYPTION_KEY=generate-with-openssl # generate via `openssl rand -hex 32`
+
+############
+# [required for prod] 
+# Caddy Config
+
+# By default listen on https://localhost:[service port] and don't use an email for SSL
+# To change this for production:
+# Uncomment all of these environment variables for the services you want exposed
+# Note that you might not want to expose Ollama or SearXNG since they aren't secured by default
+# Replace the placeholder value with the host for each service (like n8n.yourdomain.com)
+# Replace internal by your email (require to create a Let's Encrypt certificate)
+############
+
+# N8N_HOSTNAME=n8n.yourdomain.com
+# WEBUI_HOSTNAME=openwebui.yourdomain.com
+# FLOWISE_HOSTNAME=flowise.yourdomain.com
+# SUPABASE_HOSTNAME=supabase.yourdomain.com
+# LANGFUSE_HOSTNAME=langfuse.yourdomain.com
+# OLLAMA_HOSTNAME=ollama.yourdomain.com
+# SEARXNG_HOSTNAME=searxng.yourdomain.com
+# NEO4J_HOSTNAME=neo4j.yourdomain.com
+# LETSENCRYPT_EMAIL=internal
+
+
+
+# Everything below this point is optional.
+# Default values will suffice unless you need more features/customization.
+
+   #
+   #
+#######
+ #####
+   #
+
+############
+# Optional SearXNG Config
+# If you run a very small or a very large instance, you might want to change the amount of used uwsgi workers and threads per worker
+# More workers (= processes) means that more search requests can be handled at the same time, but it also causes more resource usage
+############
+
+# SEARXNG_UWSGI_WORKERS=4
+# SEARXNG_UWSGI_THREADS=4
+
+############
+# Database - You can change these to any PostgreSQL database that has logical replication enabled.
+############
+
+POSTGRES_HOST=db
+POSTGRES_DB=postgres
+POSTGRES_PORT=5432
+# default user is postgres
+POSTGRES_USER=postgres
+
+############
+# Supavisor -- Database pooler and others that can be left as default values
+############
+POOLER_PROXY_PORT_TRANSACTION=6543
+POOLER_DEFAULT_POOL_SIZE=20
+POOLER_MAX_CLIENT_CONN=100
+SECRET_KEY_BASE=UpNVntn3cDxHJpq99YMc1T1AQgQpc8kfYTuRgBiYa15BLrx8etQoXz3gZv1/u2oq
+VAULT_ENC_KEY=your-32-character-encryption-key
+
+
+############
+# API Proxy - Configuration for the Kong Reverse proxy.
+############
+
+KONG_HTTP_PORT=8000
+KONG_HTTPS_PORT=8443
+
+
+############
+# API - Configuration for PostgREST.
+############
+
+PGRST_DB_SCHEMAS=public,storage,graphql_public
+
+############
+# Flowise - Authentication Configuration for Flowise.
+############
+#FLOWISE_USERNAME=your_username
+#FLOWISE_PASSWORD=your_password
+
+
+############
+# Auth - Configuration for the GoTrue authentication server.
+############
+
+## General
+SITE_URL=http://localhost:3000
+ADDITIONAL_REDIRECT_URLS=
+JWT_EXPIRY=3600
+DISABLE_SIGNUP=false
+API_EXTERNAL_URL=http://localhost:8000
+
+## Mailer Config
+MAILER_URLPATHS_CONFIRMATION="/auth/v1/verify"
+MAILER_URLPATHS_INVITE="/auth/v1/verify"
+MAILER_URLPATHS_RECOVERY="/auth/v1/verify"
+MAILER_URLPATHS_EMAIL_CHANGE="/auth/v1/verify"
+
+## Email auth
+ENABLE_EMAIL_SIGNUP=true
+ENABLE_EMAIL_AUTOCONFIRM=true
+SMTP_ADMIN_EMAIL=admin@example.com
+SMTP_HOST=supabase-mail
+SMTP_PORT=2500
+SMTP_USER=fake_mail_user
+SMTP_PASS=fake_mail_password
+SMTP_SENDER_NAME=fake_sender
+ENABLE_ANONYMOUS_USERS=false
+
+## Phone auth
+ENABLE_PHONE_SIGNUP=true
+ENABLE_PHONE_AUTOCONFIRM=true
+
+
+############
+# Studio - Configuration for the Dashboard
+############
+
+STUDIO_DEFAULT_ORGANIZATION=Default Organization
+STUDIO_DEFAULT_PROJECT=Default Project
+
+STUDIO_PORT=3000
+# replace if you intend to use Studio outside of localhost
+SUPABASE_PUBLIC_URL=http://localhost:8000
+
+# Enable webp support
+IMGPROXY_ENABLE_WEBP_DETECTION=true
+
+# Add your OpenAI API key to enable SQL Editor Assistant
+OPENAI_API_KEY=
+
+
+############
+# Functions - Configuration for Functions
+############
+# NOTE: VERIFY_JWT applies to all functions. Per-function VERIFY_JWT is not supported yet.
+FUNCTIONS_VERIFY_JWT=false
+
+
+############
+# Logs - Configuration for Logflare
+# Please refer to https://supabase.com/docs/reference/self-hosting-analytics/introduction
+############
+
+LOGFLARE_LOGGER_BACKEND_API_KEY=your-super-secret-and-long-logflare-key
+
+# Change vector.toml sinks to reflect this change
+LOGFLARE_API_KEY=your-super-secret-and-long-logflare-key
+
+# Docker socket location - this value will differ depending on your OS
+DOCKER_SOCKET_LOCATION=/var/run/docker.sock
+
+# Google Cloud Project details
+GOOGLE_PROJECT_ID=GOOGLE_PROJECT_ID
+GOOGLE_PROJECT_NUMBER=GOOGLE_PROJECT_NUMBER
+
+================
+File: README.md
+================
+# Self-hosted AI Package
+
+**Self-hosted AI Package** is an open, docker compose template that
+quickly bootstraps a fully featured Local AI and Low Code development
+environment including Ollama for your local LLMs, Open WebUI for an interface to chat with your N8N agents, and Supabase for your database, vector store, and authentication. 
+
+This is Cole's version with a couple of improvements and the addition of Supabase, Open WebUI, Flowise, Neo4j, Langfuse, SearXNG, and Caddy!
+Also, the local RAG AI Agent workflows from the video will be automatically in your 
+n8n instance if you use this setup instead of the base one provided by n8n!
+
+## Important Links
+
+- [Local AI community](https://thinktank.ottomator.ai/c/local-ai/18) forum over in the oTTomator Think Tank
+
+- [GitHub Kanban board](https://github.com/users/coleam00/projects/2/views/1) for feature implementation and bug squashing.
+
+- [Original Local AI Starter Kit](https://github.com/n8n-io/self-hosted-ai-starter-kit) by the n8n team
+
+- Download my N8N + OpenWebUI integration [directly on the Open WebUI site.](https://openwebui.com/f/coleam/n8n_pipe/) (more instructions below)
+
+![n8n.io - Screenshot](https://raw.githubusercontent.com/n8n-io/self-hosted-ai-starter-kit/main/assets/n8n-demo.gif)
+
+Curated by <https://github.com/n8n-io> and <https://github.com/coleam00>, it combines the self-hosted n8n
+platform with a curated list of compatible AI products and components to
+quickly get started with building self-hosted AI workflows.
+
+### What’s included
+
+✅ [**Self-hosted n8n**](https://n8n.io/) - Low-code platform with over 400
+integrations and advanced AI components
+
+✅ [**Supabase**](https://supabase.com/) - Open source database as a service -
+most widely used database for AI agents
+
+✅ [**Ollama**](https://ollama.com/) - Cross-platform LLM platform to install
+and run the latest local LLMs
+
+✅ [**Open WebUI**](https://openwebui.com/) - ChatGPT-like interface to
+privately interact with your local models and N8N agents
+
+✅ [**Flowise**](https://flowiseai.com/) - No/low code AI agent
+builder that pairs very well with n8n
+
+✅ [**Qdrant**](https://qdrant.tech/) - Open source, high performance vector
+store with an comprehensive API. Even though you can use Supabase for RAG, this was
+kept unlike Postgres since it's faster than Supabase so sometimes is the better option.
+
+✅ [**Neo4j**](https://neo4j.com/) - Knowledge graph engine that powers tools like GraphRAG, LightRAG, and Graphiti 
+
+✅ [**SearXNG**](https://searxng.org/) - Open source, free internet metasearch engine which aggregates 
+results from up to 229 search services. Users are neither tracked nor profiled, hence the fit with the local AI package.
+
+✅ [**Caddy**](https://caddyserver.com/) - Managed HTTPS/TLS for custom domains
+
+✅ [**Langfuse**](https://langfuse.com/) - Open source LLM engineering platform for agent observability
+
+## Prerequisites
+
+Before you begin, make sure you have the following software installed:
+
+- [Python](https://www.python.org/downloads/) - Required to run the setup script
+- [Git/GitHub Desktop](https://desktop.github.com/) - For easy repository management
+- [Docker/Docker Desktop](https://www.docker.com/products/docker-desktop/) - Required to run all services
+
+## Installation
+
+Clone the repository and navigate to the project directory:
+```bash
+git clone -b stable https://github.com/coleam00/local-ai-packaged.git
+cd local-ai-packaged
+```
+
+Before running the services, you need to set up your environment variables for Supabase following their [self-hosting guide](https://supabase.com/docs/guides/self-hosting/docker#securing-your-services).
+
+1. Make a copy of `.env.example` and rename it to `.env` in the root directory of the project
+2. Set the following required environment variables:
+   ```bash
+   ############
+   # N8N Configuration
+   ############
+   N8N_ENCRYPTION_KEY=
+   N8N_USER_MANAGEMENT_JWT_SECRET=
+
+   ############
+   # Supabase Secrets
+   ############
+   POSTGRES_PASSWORD=
+   JWT_SECRET=
+   ANON_KEY=
+   SERVICE_ROLE_KEY=
+   DASHBOARD_USERNAME=
+   DASHBOARD_PASSWORD=
+   POOLER_TENANT_ID=
+
+   ############
+   # Neo4j Secrets
+   ############   
+   NEO4J_AUTH=
+
+   ############
+   # Langfuse credentials
+   ############
+
+   CLICKHOUSE_PASSWORD=
+   MINIO_ROOT_PASSWORD=
+   LANGFUSE_SALT=
+   NEXTAUTH_SECRET=
+   ENCRYPTION_KEY=  
+   ```
+
+> [!IMPORTANT]
+> Make sure to generate secure random values for all secrets. Never use the example values in production.
+
+3. Set the following environment variables if deploying to production, otherwise leave commented:
+   ```bash
+   ############
+   # Caddy Config
+   ############
+
+   N8N_HOSTNAME=n8n.yourdomain.com
+   WEBUI_HOSTNAME=:openwebui.yourdomain.com
+   FLOWISE_HOSTNAME=:flowise.yourdomain.com
+   SUPABASE_HOSTNAME=:supabase.yourdomain.com
+   OLLAMA_HOSTNAME=:ollama.yourdomain.com
+   SEARXNG_HOSTNAME=searxng.yourdomain.com
+   NEO4J_HOSTNAME=neo4j.yourdomain.com
+   LETSENCRYPT_EMAIL=your-email-address
+   ```   
+
+---
+
+The project includes a `start_services.py` script that handles starting both the Supabase and local AI services. The script accepts a `--profile` flag to specify which GPU configuration to use.
+
+### For Nvidia GPU users
+
+```bash
+python start_services.py --profile gpu-nvidia
+```
+
+> [!NOTE]
+> If you have not used your Nvidia GPU with Docker before, please follow the
+> [Ollama Docker instructions](https://github.com/ollama/ollama/blob/main/docs/docker.md).
+
+### For AMD GPU users on Linux
+
+```bash
+python start_services.py --profile gpu-amd
+```
+
+### For Mac / Apple Silicon users
+
+If you're using a Mac with an M1 or newer processor, you can't expose your GPU to the Docker instance, unfortunately. There are two options in this case:
+
+1. Run the starter kit fully on CPU:
+   ```bash
+   python start_services.py --profile cpu
+   ```
+
+2. Run Ollama on your Mac for faster inference, and connect to that from the n8n instance:
+   ```bash
+   python start_services.py --profile none
+   ```
+
+   If you want to run Ollama on your mac, check the [Ollama homepage](https://ollama.com/) for installation instructions.
+
+#### For Mac users running OLLAMA locally
+
+If you're running OLLAMA locally on your Mac (not in Docker), you need to modify the OLLAMA_HOST environment variable in the n8n service configuration. Update the x-n8n section in your Docker Compose file as follows:
+
+```yaml
+x-n8n: &service-n8n
+  # ... other configurations ...
+  environment:
+    # ... other environment variables ...
+    - OLLAMA_HOST=host.docker.internal:11434
+```
+
+Additionally, after you see "Editor is now accessible via: http://localhost:5678/":
+
+1. Head to http://localhost:5678/home/credentials
+2. Click on "Local Ollama service"
+3. Change the base URL to "http://host.docker.internal:11434/"
+
+### For everyone else
+
+```bash
+python start_services.py --profile cpu
+```
+
+### The environment argument
+The **start-services.py** script offers the possibility to pass one of two options for the environment argument, **private** (default environment) and **public**:
+- **private:** you are deploying the stack in a safe environment, hence a lot of ports can be made accessible without having to worry about security
+- **public:** the stack is deployed in a public environment, which means the attack surface should be made as small as possible. All ports except for 80 and 443 are closed
+
+The stack initialized with
+```bash
+   python start_services.py --profile gpu-nvidia --environment private
+   ```
+equals the one initialized with
+```bash
+   python start_services.py --profile gpu-nvidia
+   ```
+
+## Deploying to the Cloud
+
+### Prerequisites for the below steps
+
+- Linux machine (preferably Unbuntu) with Nano, Git, and Docker installed
+
+### Extra steps
+
+Before running the above commands to pull the repo and install everything:
+
+1. Run the commands as root to open up the necessary ports:
+   - ufw enable
+   - ufw allow 80 && ufw allow 443
+   - ufw reload
+   ---
+   **WARNING**
+
+   ufw does not shield ports published by docker, because the iptables rules configured by docker are analyzed before those configured by ufw. There is a solution to change this behavior, but that is out of scope for this project. Just make sure that all traffic runs through the caddy service via port 443. Port 80 should only be used to redirect to port 443.
+
+   ---
+2. Run the **start-services.py** script with the environment argument **public** to indicate you are going to run the package in a public environment. The script will make sure that all ports, except for 80 and 443, are closed down, e.g.
+
+```bash
+   python start_services.py --profile gpu-nvidia --environment public
+   ```
+
+3. Set up A records for your DNS provider to point your subdomains you'll set up in the .env file for Caddy
+to the IP address of your cloud instance.
+
+   For example, A record to point n8n to [cloud instance IP] for n8n.yourdomain.com
+
+## ⚡️ Quick start and usage
+
+The main component of the self-hosted AI starter kit is a docker compose file
+pre-configured with network and disk so there isn’t much else you need to
+install. After completing the installation steps above, follow the steps below
+to get started.
+
+1. Open <http://localhost:5678/> in your browser to set up n8n. You’ll only
+   have to do this once. You are NOT creating an account with n8n in the setup here,
+   it is only a local account for your instance!
+2. Open the included workflow:
+   <http://localhost:5678/workflow/vTN9y2dLXqTiDfPT>
+3. Create credentials for every service:
+   
+   Ollama URL: http://ollama:11434
+
+   Postgres (through Supabase): use DB, username, and password from .env. IMPORTANT: Host is 'db'
+   Since that is the name of the service running Supabase
+
+   Qdrant URL: http://qdrant:6333 (API key can be whatever since this is running locally)
+
+   Google Drive: Follow [this guide from n8n](https://docs.n8n.io/integrations/builtin/credentials/google/).
+   Don't use localhost for the redirect URI, just use another domain you have, it will still work!
+   Alternatively, you can set up [local file triggers](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.localfiletrigger/).
+4. Select **Test workflow** to start running the workflow.
+5. If this is the first time you’re running the workflow, you may need to wait
+   until Ollama finishes downloading Llama3.1. You can inspect the docker
+   console logs to check on the progress.
+6. Make sure to toggle the workflow as active and copy the "Production" webhook URL!
+7. Open <http://localhost:3000/> in your browser to set up Open WebUI.
+You’ll only have to do this once. You are NOT creating an account with Open WebUI in the 
+setup here, it is only a local account for your instance!
+8. Go to Workspace -> Functions -> Add Function -> Give name + description then paste in
+the code from `n8n_pipe.py`
+
+   The function is also [published here on Open WebUI's site](https://openwebui.com/f/coleam/n8n_pipe/).
+
+9. Click on the gear icon and set the n8n_url to the production URL for the webhook
+you copied in a previous step.
+10. Toggle the function on and now it will be available in your model dropdown in the top left! 
+
+To open n8n at any time, visit <http://localhost:5678/> in your browser.
+To open Open WebUI at any time, visit <http://localhost:3000/>.
+
+With your n8n instance, you’ll have access to over 400 integrations and a
+suite of basic and advanced AI nodes such as
+[AI Agent](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/),
+[Text classifier](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.text-classifier/),
+and [Information Extractor](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.information-extractor/)
+nodes. To keep everything local, just remember to use the Ollama node for your
+language model and Qdrant as your vector store.
+
+> [!NOTE]
+> This starter kit is designed to help you get started with self-hosted AI
+> workflows. While it’s not fully optimized for production environments, it
+> combines robust components that work well together for proof-of-concept
+> projects. You can customize it to meet your specific needs
+
+## Upgrading
+
+To update all containers to their latest versions (n8n, Open WebUI, etc.), run these commands:
+
+```bash
+# Stop all services
+docker compose -p localai -f docker-compose.yml --profile <your-profile> down
+
+# Pull latest versions of all containers
+docker compose -p localai -f docker-compose.yml --profile <your-profile> pull
+
+# Start services again with your desired profile
+python start_services.py --profile <your-profile>
+```
+
+Replace `<your-profile>` with one of: `cpu`, `gpu-nvidia`, `gpu-amd`, or `none`.
+
+Note: The `start_services.py` script itself does not update containers - it only restarts them or pulls them if you are downloading these containers for the first time. To get the latest versions, you must explicitly run the commands above.
+
+## Troubleshooting
+
+Here are solutions to common issues you might encounter:
+
+### Supabase Issues
+
+- **Supabase Pooler Restarting**: If the supabase-pooler container keeps restarting itself, follow the instructions in [this GitHub issue](https://github.com/supabase/supabase/issues/30210#issuecomment-2456955578).
+
+- **Supabase Analytics Startup Failure**: If the supabase-analytics container fails to start after changing your Postgres password, delete the folder `supabase/docker/volumes/db/data`.
+
+- **If using Docker Desktop**: Go into the Docker settings and make sure "Expose daemon on tcp://localhost:2375 without TLS" is turned on
+
+- **Supabase Service Unavailable** - Make sure you don't have an "@" character in your Postgres password! If the connection to the kong container is working (the container logs say it is receiving requests from n8n) but n8n says it cannot connect, this is generally the problem from what the community has shared. Other characters might not be allowed too, the @ symbol is just the one I know for sure!
+
+### GPU Support Issues
+
+- **Windows GPU Support**: If you're having trouble running Ollama with GPU support on Windows with Docker Desktop:
+  1. Open Docker Desktop settings
+  2. Enable WSL 2 backend
+  3. See the [Docker GPU documentation](https://docs.docker.com/desktop/features/gpu/) for more details
+
+- **Linux GPU Support**: If you're having trouble running Ollama with GPU support on Linux, follow the [Ollama Docker instructions](https://github.com/ollama/ollama/blob/main/docs/docker.md).
+
+## 👓 Recommended reading
+
+n8n is full of useful content for getting started quickly with its AI concepts
+and nodes. If you run into an issue, go to [support](#support).
+
+- [AI agents for developers: from theory to practice with n8n](https://blog.n8n.io/ai-agents/)
+- [Tutorial: Build an AI workflow in n8n](https://docs.n8n.io/advanced-ai/intro-tutorial/)
+- [Langchain Concepts in n8n](https://docs.n8n.io/advanced-ai/langchain/langchain-n8n/)
+- [Demonstration of key differences between agents and chains](https://docs.n8n.io/advanced-ai/examples/agent-chain-comparison/)
+- [What are vector databases?](https://docs.n8n.io/advanced-ai/examples/understand-vector-databases/)
+
+## 🎥 Video walkthrough
+
+- [Cole's Guide to the Local AI Starter Kit](https://youtu.be/pOsO40HSbOo)
+
+## 🛍️ More AI templates
+
+For more AI workflow ideas, visit the [**official n8n AI template
+gallery**](https://n8n.io/workflows/?categories=AI). From each workflow,
+select the **Use workflow** button to automatically import the workflow into
+your local n8n instance.
+
+### Learn AI key concepts
+
+- [AI Agent Chat](https://n8n.io/workflows/1954-ai-agent-chat/)
+- [AI chat with any data source (using the n8n workflow too)](https://n8n.io/workflows/2026-ai-chat-with-any-data-source-using-the-n8n-workflow-tool/)
+- [Chat with OpenAI Assistant (by adding a memory)](https://n8n.io/workflows/2098-chat-with-openai-assistant-by-adding-a-memory/)
+- [Use an open-source LLM (via HuggingFace)](https://n8n.io/workflows/1980-use-an-open-source-llm-via-huggingface/)
+- [Chat with PDF docs using AI (quoting sources)](https://n8n.io/workflows/2165-chat-with-pdf-docs-using-ai-quoting-sources/)
+- [AI agent that can scrape webpages](https://n8n.io/workflows/2006-ai-agent-that-can-scrape-webpages/)
+
+### Local AI templates
+
+- [Tax Code Assistant](https://n8n.io/workflows/2341-build-a-tax-code-assistant-with-qdrant-mistralai-and-openai/)
+- [Breakdown Documents into Study Notes with MistralAI and Qdrant](https://n8n.io/workflows/2339-breakdown-documents-into-study-notes-using-templating-mistralai-and-qdrant/)
+- [Financial Documents Assistant using Qdrant and](https://n8n.io/workflows/2335-build-a-financial-documents-assistant-using-qdrant-and-mistralai/) [ Mistral.ai](http://mistral.ai/)
+- [Recipe Recommendations with Qdrant and Mistral](https://n8n.io/workflows/2333-recipe-recommendations-with-qdrant-and-mistral/)
+
+## Tips & tricks
+
+### Accessing local files
+
+The self-hosted AI starter kit will create a shared folder (by default,
+located in the same directory) which is mounted to the n8n container and
+allows n8n to access files on disk. This folder within the n8n container is
+located at `/data/shared` -- this is the path you’ll need to use in nodes that
+interact with the local filesystem.
+
+**Nodes that interact with the local filesystem**
+
+- [Read/Write Files from Disk](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.filesreadwrite/)
+- [Local File Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.localfiletrigger/)
+- [Execute Command](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.executecommand/)
+
+## 📜 License
+
+This project (originally created by the n8n team, link at the top of the README) is licensed under the Apache License 2.0 - see the
+[LICENSE](LICENSE) file for details.
+
+================
+File: docker-compose.yml
+================
+include:
+  - ./supabase/docker/docker-compose.yml
+volumes:
+  n8n_storage:
+  ollama_storage:
+  qdrant_storage:
+  open-webui:
+  flowise:
+  caddy-data:
+  caddy-config:
+  valkey-data:
+  langfuse_postgres_data:
+  langfuse_clickhouse_data:
+  langfuse_clickhouse_logs:
+  langfuse_minio_data:
+x-n8n: &service-n8n
+  image: n8nio/n8n:latest
+  environment:
+    - DB_TYPE=postgresdb
+    - DB_POSTGRESDB_HOST=db
+    - DB_POSTGRESDB_USER=postgres
+    - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+    - DB_POSTGRESDB_DATABASE=postgres
+    - N8N_DIAGNOSTICS_ENABLED=false
+    - N8N_PERSONALIZATION_ENABLED=false
+    - N8N_ENCRYPTION_KEY
+    - N8N_USER_MANAGEMENT_JWT_SECRET
+    - WEBHOOK_URL=${N8N_HOSTNAME:+https://}${N8N_HOSTNAME:-http://localhost:5678}
+x-ollama: &service-ollama
+  image: ollama/ollama:latest
+  container_name: ollama
+  restart: unless-stopped
+  expose:
+    - 11434/tcp
+  environment:
+    - OLLAMA_CONTEXT_LENGTH=8192
+  volumes:
+    - ollama_storage:/root/.ollama
+x-init-ollama: &init-ollama
+  image: ollama/ollama:latest
+  container_name: ollama-pull-llama
+  volumes:
+    - ollama_storage:/root/.ollama
+  entrypoint: /bin/sh
+  command:
+    - "-c"
+    - "sleep 3; OLLAMA_HOST=ollama:11434 ollama pull qwen2.5:7b-instruct-q4_K_M; OLLAMA_HOST=ollama:11434 ollama pull nomic-embed-text"
+    # For a larger context length verison of the model, run these commands:
+    # echo "FROM qwen2.5:7b-instruct-q4_K_M\n\nPARAMETER num_ctx 8096" > Modelfile
+    # ollama create qwen2.5:7b-8k -f ./Modelfile
+    # Change the name of the LLM and num_ctx as you see fit.
+services:
+  flowise:
+    image: flowiseai/flowise
+    restart: unless-stopped
+    container_name: flowise
+    expose:
+      - 3001/tcp
+    environment:
+        - PORT=3001
+        - FLOWISE_USERNAME=${FLOWISE_USERNAME}
+        - FLOWISE_PASSWORD=${FLOWISE_PASSWORD}  
+    extra_hosts:
+      - "host.docker.internal:host-gateway"        
+    volumes:
+        - ~/.flowise:/root/.flowise
+    entrypoint: /bin/sh -c "sleep 3; flowise start"
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    restart: unless-stopped
+    container_name: open-webui
+    expose:
+      - 8080/tcp
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - open-webui:/app/backend/data
+  n8n-import:
+    <<: *service-n8n
+    container_name: n8n-import
+    entrypoint: /bin/sh
+    command:
+      - "-c"
+      - "n8n import:credentials --separate --input=/backup/credentials && n8n import:workflow --separate --input=/backup/workflows"
+    volumes:
+      - ./n8n/backup:/backup  
+  n8n:
+    <<: *service-n8n
+    container_name: n8n
+    restart: unless-stopped
+    expose:
+      - 5678/tcp
+    volumes:
+      - n8n_storage:/home/node/.n8n
+      - ./n8n/backup:/backup
+      - ./shared:/data/shared
+    depends_on:
+      n8n-import:
+        condition: service_completed_successfully
+  qdrant:
+    image: qdrant/qdrant
+    container_name: qdrant
+    restart: unless-stopped
+    expose:
+      - 6333/tcp
+      - 6334/tcp
+    volumes:
+      - qdrant_storage:/qdrant/storage
+  neo4j:
+    image: neo4j:latest
+    volumes:
+        - ./neo4j/logs:/logs
+        - ./neo4j/config:/config
+        - ./neo4j/data:/data
+        - ./neo4j/plugins:/plugins
+    expose:
+      - 7473/tcp
+      - 7474/tcp
+      - 7687/tcp
+    environment:
+        - NEO4J_AUTH=${NEO4J_AUTH:-"neo4j/your_password"}
+    restart: always      
+  caddy:
+    container_name: caddy
+    image: docker.io/library/caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - 80:80/tcp
+      - 443:443/tcp
+    expose:
+      - 2019/tcp
+      - 443/tcp
+      - 443/udp
+      - 80/tcp
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data:rw
+      - caddy-config:/config:rw
+    environment:
+      - N8N_HOSTNAME=${N8N_HOSTNAME:-":8001"}
+      - WEBUI_HOSTNAME=${WEBUI_HOSTNAME:-":8002"}
+      - FLOWISE_HOSTNAME=${FLOWISE_HOSTNAME:-":8003"}
+      - OLLAMA_HOSTNAME=${OLLAMA_HOSTNAME:-":8004"}
+      - SUPABASE_HOSTNAME=${SUPABASE_HOSTNAME:-":8005"}
+      - SEARXNG_HOSTNAME=${SEARXNG_HOSTNAME:-":8006"}
+      - LANGFUSE_HOSTNAME=${LANGFUSE_HOSTNAME:-":8007"}
+      - NEO4J_HOSTNAME=${NEO4J_HOSTNAME:-":8008"}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL:-internal}
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+  langfuse-worker:
+    image: langfuse/langfuse-worker:3
+    restart: always
+    depends_on: &langfuse-depends-on
+      postgres:
+        condition: service_healthy    
+      minio:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+    expose:
+     - 3030/tcp
+    environment: &langfuse-worker-env
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
+      SALT: ${LANGFUSE_SALT}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      TELEMETRY_ENABLED: ${TELEMETRY_ENABLED:-true}
+      LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES: ${LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES:-true}
+      CLICKHOUSE_MIGRATION_URL: ${CLICKHOUSE_MIGRATION_URL:-clickhouse://clickhouse:9000}
+      CLICKHOUSE_URL: ${CLICKHOUSE_URL:-http://clickhouse:8123}
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER:-clickhouse}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+      CLICKHOUSE_CLUSTER_ENABLED: ${CLICKHOUSE_CLUSTER_ENABLED:-false}
+      LANGFUSE_S3_EVENT_UPLOAD_BUCKET: ${LANGFUSE_S3_EVENT_UPLOAD_BUCKET:-langfuse}
+      LANGFUSE_S3_EVENT_UPLOAD_REGION: ${LANGFUSE_S3_EVENT_UPLOAD_REGION:-auto}
+      LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID: ${LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID:-minio}
+      LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD}
+      LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: ${LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT:-http://minio:9000}
+      LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE: ${LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE:-true}
+      LANGFUSE_S3_EVENT_UPLOAD_PREFIX: ${LANGFUSE_S3_EVENT_UPLOAD_PREFIX:-events/}
+      LANGFUSE_S3_MEDIA_UPLOAD_BUCKET: ${LANGFUSE_S3_MEDIA_UPLOAD_BUCKET:-langfuse}
+      LANGFUSE_S3_MEDIA_UPLOAD_REGION: ${LANGFUSE_S3_MEDIA_UPLOAD_REGION:-auto}
+      LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID: ${LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID:-minio}
+      LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD}
+      LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT: ${LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT:-http://localhost:9090}
+      LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE: ${LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE:-true}
+      LANGFUSE_S3_MEDIA_UPLOAD_PREFIX: ${LANGFUSE_S3_MEDIA_UPLOAD_PREFIX:-media/}
+      LANGFUSE_S3_BATCH_EXPORT_ENABLED: ${LANGFUSE_S3_BATCH_EXPORT_ENABLED:-false}
+      LANGFUSE_S3_BATCH_EXPORT_BUCKET: ${LANGFUSE_S3_BATCH_EXPORT_BUCKET:-langfuse}
+      LANGFUSE_S3_BATCH_EXPORT_PREFIX: ${LANGFUSE_S3_BATCH_EXPORT_PREFIX:-exports/}
+      LANGFUSE_S3_BATCH_EXPORT_REGION: ${LANGFUSE_S3_BATCH_EXPORT_REGION:-auto}
+      LANGFUSE_S3_BATCH_EXPORT_ENDPOINT: ${LANGFUSE_S3_BATCH_EXPORT_ENDPOINT:-http://minio:9000}
+      LANGFUSE_S3_BATCH_EXPORT_EXTERNAL_ENDPOINT: ${LANGFUSE_S3_BATCH_EXPORT_EXTERNAL_ENDPOINT:-http://localhost:9090}
+      LANGFUSE_S3_BATCH_EXPORT_ACCESS_KEY_ID: ${LANGFUSE_S3_BATCH_EXPORT_ACCESS_KEY_ID:-minio}
+      LANGFUSE_S3_BATCH_EXPORT_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD}
+      LANGFUSE_S3_BATCH_EXPORT_FORCE_PATH_STYLE: ${LANGFUSE_S3_BATCH_EXPORT_FORCE_PATH_STYLE:-true}
+      LANGFUSE_INGESTION_QUEUE_DELAY_MS: ${LANGFUSE_INGESTION_QUEUE_DELAY_MS:-}
+      LANGFUSE_INGESTION_CLICKHOUSE_WRITE_INTERVAL_MS: ${LANGFUSE_INGESTION_CLICKHOUSE_WRITE_INTERVAL_MS:-}
+      REDIS_HOST: ${REDIS_HOST:-redis}
+      REDIS_PORT: ${REDIS_PORT:-6379}
+      REDIS_AUTH: ${REDIS_AUTH:-LOCALONLYREDIS}
+      REDIS_TLS_ENABLED: ${REDIS_TLS_ENABLED:-false}
+      REDIS_TLS_CA: ${REDIS_TLS_CA:-/certs/ca.crt}
+      REDIS_TLS_CERT: ${REDIS_TLS_CERT:-/certs/redis.crt}
+      REDIS_TLS_KEY: ${REDIS_TLS_KEY:-/certs/redis.key}
+  langfuse-web:
+    image: langfuse/langfuse:3
+    restart: always
+    depends_on: *langfuse-depends-on
+    expose:
+      - 3000/tcp
+    environment:
+      <<: *langfuse-worker-env
+      NEXTAUTH_URL: http://localhost:3002
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      LANGFUSE_INIT_ORG_ID: ${LANGFUSE_INIT_ORG_ID:-}
+      LANGFUSE_INIT_ORG_NAME: ${LANGFUSE_INIT_ORG_NAME:-}
+      LANGFUSE_INIT_PROJECT_ID: ${LANGFUSE_INIT_PROJECT_ID:-}
+      LANGFUSE_INIT_PROJECT_NAME: ${LANGFUSE_INIT_PROJECT_NAME:-}
+      LANGFUSE_INIT_PROJECT_PUBLIC_KEY: ${LANGFUSE_INIT_PROJECT_PUBLIC_KEY:-}
+      LANGFUSE_INIT_PROJECT_SECRET_KEY: ${LANGFUSE_INIT_PROJECT_SECRET_KEY:-}
+      LANGFUSE_INIT_USER_EMAIL: ${LANGFUSE_INIT_USER_EMAIL:-}
+      LANGFUSE_INIT_USER_NAME: ${LANGFUSE_INIT_USER_NAME:-}
+      LANGFUSE_INIT_USER_PASSWORD: ${LANGFUSE_INIT_USER_PASSWORD:-}
+  clickhouse:
+    image: clickhouse/clickhouse-server
+    restart: always
+    user: "101:101"
+    expose:
+      - 8123/tcp
+      - 9000/tcp
+      - 9009/tcp
+    environment:
+      CLICKHOUSE_DB: default
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+    volumes:
+      - langfuse_clickhouse_data:/var/lib/clickhouse
+      - langfuse_clickhouse_logs:/var/log/clickhouse-server
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 1s
+  minio:
+    image: minio/minio
+    restart: always
+    entrypoint: sh
+    # create the 'langfuse' bucket before starting the service
+    command: -c 'mkdir -p /data/langfuse && minio server --address ":9000" --console-address ":9001" /data'
+    expose:
+      - 9000/tcp
+      - 9001/tcp
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - langfuse_minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+      start_period: 1s
+  postgres:
+    image: postgres:${POSTGRES_VERSION:-latest}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+    expose:
+      - 5432/tcp
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: postgres
+    volumes:
+      - langfuse_postgres_data:/var/lib/postgresql/data              
+  redis:
+    container_name: redis
+    image: docker.io/valkey/valkey:8-alpine
+    command: valkey-server --save 30 1 --loglevel warning
+    restart: unless-stopped
+    expose:
+      - 6379/tcp
+    volumes:
+      - valkey-data:/data
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 10s
+      retries: 10        
+  searxng:
+    container_name: searxng
+    image: docker.io/searxng/searxng:latest
+    restart: unless-stopped
+    expose:
+      - 8080/tcp
+    volumes:
+      - ./searxng:/etc/searxng:rw
+    environment:
+      - SEARXNG_BASE_URL=https://${SEARXNG_HOSTNAME:-localhost}/
+      - UWSGI_WORKERS=${SEARXNG_UWSGI_WORKERS:-4}
+      - UWSGI_THREADS=${SEARXNG_UWSGI_THREADS:-4}
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"      
+  ollama-cpu:
+    profiles: ["cpu"]
+    <<: *service-ollama
+  ollama-gpu:
+    profiles: ["gpu-nvidia"]
+    <<: *service-ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+  ollama-gpu-amd:
+    profiles: ["gpu-amd"]
+    <<: *service-ollama
+    image: ollama/ollama:rocm
+    devices:
+      - "/dev/kfd"
+      - "/dev/dri"
+  ollama-pull-llama-cpu:
+    profiles: ["cpu"]
+    <<: *init-ollama
+    depends_on:
+      - ollama-cpu
+  ollama-pull-llama-gpu:
+    profiles: ["gpu-nvidia"]
+    <<: *init-ollama
+    depends_on:
+      - ollama-gpu
+  ollama-pull-llama-gpu-amd:
+    profiles: [gpu-amd]
+    <<: *init-ollama
+    image: ollama/ollama:rocm
+    depends_on:
+     - ollama-gpu-amd
+
+
+
+
+================================================================
+End of Codebase
+================================================================

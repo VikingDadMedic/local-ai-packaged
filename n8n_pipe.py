@@ -1,8 +1,8 @@
 """
 title: n8n Pipe Function
-author: Cole Medin
-author_url: https://www.youtube.com/@ColeMedin
-version: 0.1.0
+author: Ryan Earls
+author_url: https://www.⦵.com
+version: 0.0.1
 
 This module defines a Pipe class that utilizes N8N for an Agent
 """
@@ -12,6 +12,7 @@ from pydantic import BaseModel, Field
 import os
 import time
 import requests
+
 
 def extract_event_info(event_emitter) -> tuple[Optional[str], Optional[str]]:
     if not event_emitter or not event_emitter.__closure__:
@@ -23,11 +24,10 @@ def extract_event_info(event_emitter) -> tuple[Optional[str], Optional[str]]:
             return chat_id, message_id
     return None, None
 
+
 class Pipe:
     class Valves(BaseModel):
-        n8n_url: str = Field(
-            default="https://n8n.[your domain].com/webhook/[your webhook URL]"
-        )
+        n8n_url: str = Field(default="http://n8n:5678/webhook/invoke_n8n_agent")
         n8n_bearer_token: str = Field(default="...")
         input_field: str = Field(default="chatInput")
         response_field: str = Field(default="output")
@@ -115,7 +115,7 @@ class Pipe:
                     f"Error during sequence execution: {str(e)}",
                     True,
                 )
-                return {"error": str(e)}
+                return body
         # If no message is available alert user
         else:
             await self.emit_status(
@@ -132,4 +132,4 @@ class Pipe:
             )
 
         await self.emit_status(__event_emitter__, "info", "Complete", True)
-        return n8n_response
+        return body
